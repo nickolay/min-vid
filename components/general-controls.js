@@ -43,7 +43,8 @@ module.exports = React.createClass({
       action: 'send-to-tab',
       id: this.props.id,
       domain: this.props.domain,
-      time: currentTime
+      time: currentTime,
+      url: this.props.url
     });
     resetPlayer();
   },

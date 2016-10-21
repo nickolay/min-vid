@@ -5,6 +5,7 @@ const AppView = require('./components/app-view');
 const defaultData = {
   id: '',
   src: '',
+  url: '', // only used for <video> tags currently
   domain: '',
   minimized: false,
   loaded: false,

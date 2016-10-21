@@ -1,6 +1,31 @@
 const host = window.location.host;
 const overlayCheckInterval = setInterval(checkForEmbeds, 3000);
 
+
+/*
+ * <video> support
+ * - check that we aren't on vimeo or youtube
+ * - check the video src
+ * - may have to place it as a :before with css
+ */
+
+const videoTagRE = new RegExp('^(https?:)?//*.+(.mp4|.ogg|.3gp|.ogv|.spx|.oga|.mkv|.webm)')
+
+function videoTagChecks() {
+  if (!!~host.indexOf('youtube.com') || !!~host.indexOf('vimeo.com')) return;
+
+  const videoTags = Array.from(document.querySelectorAll('video'))
+        .map((el) => Boolean(videoTagRE.exec(el.src)));
+  if (videoTags.length) {
+    sendMetric('available');
+    videoTags.forEach(videoTagHandler);
+  }
+}
+
+function videoTagHandler(el) {
+  
+}
+
 self.port.on('detach', function() {
   clearInterval(overlayCheckInterval);
   Array.from(document.querySelectorAll('.minvid__overlay__wrapper'))
